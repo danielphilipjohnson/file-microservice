@@ -6,11 +6,10 @@ use axum::{extract::Multipart, routing::post, Json, Router};
 use axum_extra::extract::TypedHeader;
 use axum_extra::headers::ContentType;
 
-// Constants
 const ALLOWED_TYPES: [&str; 3] = ["text/plain", "application/json", "application/pdf"];
 
 pub async fn handle_file_upload(
-    TypedHeader(content_type): TypedHeader<ContentType>, // Extract Content-Type
+    TypedHeader(content_type): TypedHeader<ContentType>,
     mut multipart: Multipart,
 ) -> Result<Json<FileMetadata>, AppError> {
     if !content_type.to_string().contains("multipart/form-data") {
